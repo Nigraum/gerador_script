@@ -29,6 +29,8 @@ function generateTemplate() {
         template += 'set device-group DG-VSYS_BORDER address HOST-' + ip + '-' + ritmInput + ' ip-netmask ' + ip + '/32\n';
     });
 
+    template += '\n\n';
+
     // Adicionando objeto ao grupo
     ips.forEach(function(ip) {
         template += 'set device-group INLINE address-group MDR-BLOCKING-1 static HOST-' + ip + '-' + ritmInput + '\n';
