@@ -19,11 +19,24 @@ function generateTemplate() {
     });
     var template = '';
 
+    // Criando objeto 1
     ips.forEach(function(ip) {
         template += 'set device-group INLINE address HOST-' + ip + '-' + ritmInput + ' ip-netmask ' + ip + '/32\n';
+    });
+
+    // Criando objeto 2
+    ips.forEach(function(ip) {
         template += 'set device-group DG-VSYS_BORDER address HOST-' + ip + '-' + ritmInput + ' ip-netmask ' + ip + '/32\n';
+    });
+
+    // Adicionando objeto ao grupo
+    ips.forEach(function(ip) {
         template += 'set device-group INLINE address-group MDR-BLOCKING-1 static HOST-' + ip + '-' + ritmInput + '\n';
-        template += 'set device-group DG-VSYS_BORDER address-group GRP-BLOCK-PASSWD-SPRAY-1 static HOST-' + ip + '-' + ritmInput + '\n\n';
+    });
+
+    // Adicionando objeto ao grupo 
+    ips.forEach(function(ip) {
+        template += 'set device-group DG-VSYS_BORDER address-group GRP-BLOCK-PASSWD-SPRAY-1 static HOST-' + ip + '-' + ritmInput + '\n';
     });
 
     output.value = template.trim();
