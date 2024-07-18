@@ -5,7 +5,7 @@ function generateTemplate() {
     var ipInput = document.getElementById('ip').value;
     var ritmInput = document.getElementById('ritm').value;
     var output = document.getElementById('output');
-    
+
     console.log("IP Input:", ipInput);
     console.log("RITM Input:", ritmInput);
 
@@ -14,9 +14,26 @@ function generateTemplate() {
         return;
     }
 
+    // Remove espaços em branco dos inputs
+    ipInput = ipInput.trim();
+    ritmInput = ritmInput.trim();
+
+    // Verifica se o campo de RITM tem espaços
+    if (ritmInput.includes(' ')) {
+        alert('O campo RITM não deve conter espaços.');
+        return;
+    }
+
+    // Verifica e remove espaços dos IPs
     var ips = ipInput.split(',').map(function(ip) {
-        return ip.trim();
+        var trimmedIp = ip.trim();
+        if (trimmedIp.includes(' ')) {
+            alert('Os IPs não devem conter espaços.');
+            throw new Error('Os IPs não devem conter espaços.');
+        }
+        return trimmedIp;
     });
+
     var template = '';
 
     // Criando objeto 1
@@ -33,12 +50,12 @@ function generateTemplate() {
 
     // Adicionando objeto ao grupo
     ips.forEach(function(ip) {
-        template += 'set device-group INLINE address-group MDR-BLOCKING-1 static HOST-' + ip + '-' + ritmInput + '\n';
+        template += 'set device-group INLINE address-group MDR-BLOCKING-3 static HOST-' + ip + '-' + ritmInput + '\n';
     });
 
     // Adicionando objeto ao grupo 
     ips.forEach(function(ip) {
-        template += 'set device-group DG-VSYS_BORDER address-group GRP-BLOCK-PASSWD-SPRAY-1 static HOST-' + ip + '-' + ritmInput + '\n';
+        template += 'set device-group DG-VSYS_BORDER address-group GRP-BLOCK-PASSWD-SPRAY-3 static HOST-' + ip + '-' + ritmInput + '\n';
     });
 
     output.value = template.trim();
