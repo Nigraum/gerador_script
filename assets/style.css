@@ -74,8 +74,8 @@ button {
   margin: 20px auto; /* Centraliza o botão horizontalmente */
   border: none;
   border-radius: 4px;
-  background-color: #4fff4b; /* Cor verde neon do botão */
-  color: #fff; /* Cor do texto ajustada para branco */
+  background-color: #4fff4b; 
+  color: #fff; 
   cursor: pointer;
   font-size: 16px;
   text-align: center;
